@@ -1,4 +1,4 @@
-import type * as type from '@/types';
+import type * as type from '@/types/recruit';
 import { ax } from './axios';
 
 export const fetchRecruitList = async () => {
@@ -6,7 +6,9 @@ export const fetchRecruitList = async () => {
   return res.data;
 };
 
-export const fetchRecruitDetail = async (req: type.RecruitDetailQueryModel) => {
+export const fetchRecruitDetail = async (
+  req: type.RecruitDetailQueryModel,
+): Promise<type.RecruitDetailServerModel> => {
   const res = await ax.get(`/v1/jds/${req.recruitId}`);
   return res.data;
 };
