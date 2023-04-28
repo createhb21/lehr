@@ -51,8 +51,8 @@ export interface RecruitDetailQueryModel {
 
 interface FactoryObjDef {
   address: string;
-  bus: { exists: true; desc: string | null };
-  dormitory: { exists: true; desc: string | null };
+  bus: { exists: boolean; desc: string | null };
+  dormitory: { exists: boolean; desc: string | null };
   female_number: number;
   id: number;
   male_number: number;

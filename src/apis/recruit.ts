@@ -1,8 +1,8 @@
 import type * as type from '@/types/recruit';
 import { ax } from './axios';
 
-export const fetchRecruitList = async () => {
-  const res = await ax.get('/v1/jds');
+export const fetchRecruitList = async (req: type.RecruitListQueryModel) => {
+  const res = await ax.get('/v1/jds', { params: req });
   return res.data;
 };
 
