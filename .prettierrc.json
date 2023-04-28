@@ -1,0 +1,24 @@
+{
+  "singleQuote": true,
+  "semi": true,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "printWidth": 100,
+  "endOfLine": "lf",
+  "bracketSpacing": true,
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrder": [
+    "^(@/libs)(.*|$)",
+    "^(@/components)(.*|$)",
+    "^(@/atoms)(.*|$)",
+    "^(@/hooks)(.*|$)",
+    "^(@/types)(.*|$)",
+    "^(@/utils)(.*|$)",
+    "^(@/constants/)(.*|$)",
+    "^(@/assets/)(.*|$)",
+    "^(@/styles)(.*|$)",
+    "^(./styled)(.*|$)",
+    "^(./)(.*|$)"
+  ]
+}
