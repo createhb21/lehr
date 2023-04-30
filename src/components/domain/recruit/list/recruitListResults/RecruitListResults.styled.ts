@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 export const List = styled.ul`
   ${({ theme }) => css`
     width: 100%;
+    min-height: 378px; // For No Layout SHift
     padding: 40px 20px 48px;
     background-color: ${theme.colors.white};
 

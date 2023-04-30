@@ -14,9 +14,6 @@ const RecruitListContainer = ({ filters }: RecruitListContainerProps) => {
       <Suspense fallback={<div />}>
         <RecruitListResults filters={filters} />
       </Suspense>
-      {/* <Suspense fallback={<div />}>
-        <RecommendList />
-      </Suspense> */}
     </S.RecruitListContainer>
   );
 };
