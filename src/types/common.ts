@@ -11,3 +11,8 @@ export interface Status {
   status: number;
   status_name: string;
 }
+
+export interface StandardResponseModel<T> extends Status {
+  data: T[];
+  page_result: PageInfo;
+}

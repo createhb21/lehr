@@ -1,5 +1,3 @@
-import { PageInfo, Status } from './common';
-
 export interface Company {
   id: number; // 회사의 ID
   name: string; // 회사 이름
@@ -30,13 +28,8 @@ export interface RecruitOverview {
   task_arr: string[];
 }
 
-export interface RecruitListServerModel extends Status {
-  data: RecruitOverview[];
-  page_result: PageInfo;
-}
-
 export type Order = 'recent' | 'end' | 'popular' | 'view' | 'rand';
-export type Filter = 'valid' | 'expired' | 'toadyUpload' | 'almostDeadline' | 'deadline';
+export type Filter = 'valid' | 'expired' | 'todayUpload' | 'almostDeadline' | 'deadline';
 
 export interface RecruitListQueryModel {
   order?: Order;
@@ -119,8 +112,4 @@ export interface RecruitDetail {
     preferred_certi_arr: string[];
     preferred_etc_arr: string[];
   };
-}
-
-export interface RecruitDetailServerModel extends Status {
-  data: RecruitDetail;
 }
