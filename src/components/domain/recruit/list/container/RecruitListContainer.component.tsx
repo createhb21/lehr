@@ -1,11 +1,11 @@
 import dynamic from 'next/dynamic';
 
-import { Suspense } from '@/libs';
 import type { RecruitListQueryModel as SearchFilter } from '@/types/recruit';
 
 import * as S from './RecruitListContainer.styled';
 
 import { useSearchFilter } from '../hooks';
+import { Suspense } from 'react';
 
 const FilterList = dynamic(() => import('../filterList/FilterList.component'), {
   suspense: true,
