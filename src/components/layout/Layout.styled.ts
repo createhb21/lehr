@@ -11,6 +11,7 @@ export const Main = styled.main<MainProps>`
     position: relative;
     width: 100vw;
     min-width: max-content;
+    margin-top: 100px;
     min-height: ${footer && header
       ? `calc(100vh - ${theme.size.header.height_m} - ${theme.size.footer.height_m})`
       : header
