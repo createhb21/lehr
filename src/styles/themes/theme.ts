@@ -5,6 +5,8 @@ import { colors } from './colors';
 import { fonts } from './fonts';
 import { zIndex } from './zIndex';
 import { size } from './size';
+import { button } from './button';
+import { tag } from './tag';
 
 export const theme = {
   a11y,
@@ -14,4 +16,6 @@ export const theme = {
   fonts,
   zIndex,
   size,
+  button,
+  tag,
 };
