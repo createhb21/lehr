@@ -111,5 +111,5 @@ export interface RecruitDetail {
     pay_arr: string[];
     preferred_certi_arr: string[];
     preferred_etc_arr: string[];
-  };
+  }[];
 }
