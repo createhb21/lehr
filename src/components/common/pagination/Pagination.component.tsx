@@ -1,5 +1,7 @@
+import { usePagination } from '@/hooks';
+
 import type { PageInfo } from '@/types/common';
-import { usePagination } from '@/hooks/usePagination';
+
 import * as S from './Pagination.styled';
 
 interface PaginationProps {
@@ -8,7 +10,7 @@ interface PaginationProps {
   hasDoubleBtn?: boolean;
 }
 
-const Pagination = ({
+export const Pagination = ({
   pageInfo = {} as PageInfo,
   maxPageCount = 9,
   hasDoubleBtn = true,
@@ -64,5 +66,3 @@ const Pagination = ({
     </S.Root>
   );
 };
-
-export default Pagination;

@@ -1,7 +1,7 @@
-import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
-import { ArrowIcon, ArrowDoubleIcon } from '@/assets/icons';
+import { ArrowDoubleIcon, ArrowIcon } from '@/assets/icons';
 
 export const Root = styled.div`
   ${({ theme }) => css`

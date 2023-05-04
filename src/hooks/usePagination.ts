@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 import { createPageList } from '@/utils/pagination';
-
-import { useRouter } from 'next/router';
 
 export const usePagination = (page: number, totalPages: number, maxPageCount: number) => {
   const router = useRouter();
@@ -22,7 +21,7 @@ export const usePagination = (page: number, totalPages: number, maxPageCount: nu
   const handleFirstPage = () => {
     if (currentPage === 1) return;
 
-    router.replace({
+    router.push({
       pathname: router.pathname,
       query: { ...router.query, page: String(1) },
     });
@@ -36,7 +35,7 @@ export const usePagination = (page: number, totalPages: number, maxPageCount: nu
       1,
     );
 
-    router.replace({
+    router.push({
       pathname: router.pathname,
       query: { ...router.query, page: String(prevPageNum) },
     });
@@ -45,7 +44,7 @@ export const usePagination = (page: number, totalPages: number, maxPageCount: nu
   const handleClickNum = (idx: number) => () => {
     if (currentPage === idx) return;
 
-    router.replace({
+    router.push({
       pathname: router.pathname,
       query: { ...router.query, page: String(idx) },
     });
@@ -59,7 +58,7 @@ export const usePagination = (page: number, totalPages: number, maxPageCount: nu
       totalPages,
     );
 
-    router.replace({
+    router.push({
       pathname: router.pathname,
       query: { ...router.query, page: String(nextPageNum) },
     });
@@ -68,7 +67,7 @@ export const usePagination = (page: number, totalPages: number, maxPageCount: nu
   const handleLastPage = () => {
     if (currentPage === totalPages) return;
 
-    router.replace({
+    router.push({
       pathname: router.pathname,
       query: { ...router.query, page: String(totalPages) },
     });
