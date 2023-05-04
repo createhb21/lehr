@@ -1,54 +1,41 @@
+import type { GetServerSideProps, NextLayoutPage } from 'next';
 import { ReactElement } from 'react';
-import type { GetServerSidePropsContext, NextLayoutPage } from 'next';
 
 import { Layout } from '@/components';
-import { QueryClient, dehydrate } from '@tanstack/react-query';
-import { recruitKeys } from '@/queries/queryKeys';
-import { Filter, Order, RecruitListQueryModel } from '@/types/recruit';
-import { fetchRecruitList } from '@/apis/recruit';
 import { RecruitListContainer } from '@/components/domain/recruit';
 
+import type { Filter, Order, RecruitListQueryModel as SearchFilter } from '@/types/recruit';
+
 interface RecruitingDetailPageProps {
-  filters?: RecruitListQueryModel;
+  staticFilters?: SearchFilter;
 }
 
 const RecruitingSearchPage: NextLayoutPage = ({
-  filters = {} as RecruitListQueryModel,
+  staticFilters = {} as SearchFilter,
 }: RecruitingDetailPageProps) => {
-  return <RecruitListContainer filters={filters} />;
+  return <RecruitListContainer staticFilters={staticFilters} />;
 };
 
 RecruitingSearchPage.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <Layout header footer>
-      {page}
-    </Layout>
-  );
+  return <Layout header>{page}</Layout>;
 };
 
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const { query } = context;
-  const size = query?.size || '';
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const page = query?.page || '';
+  const size = query?.size || '';
   const order = query?.order || '';
   const filter = query?.filter || '';
 
-  const searchedRecruitingFilter = {
+  const staticFilters = {
     ...(size && { size: +size }),
     ...(page && { page: +page }),
     ...(order && { order: order as Order }),
     ...(filter && { filter: filter as Filter }),
   };
 
-  const queryClient = new QueryClient();
-  await queryClient.fetchQuery(recruitKeys.list(searchedRecruitingFilter), () =>
-    fetchRecruitList(searchedRecruitingFilter),
-  );
-
   return {
     props: {
-      filters: searchedRecruitingFilter,
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+      staticFilters,
     },
   };
 };

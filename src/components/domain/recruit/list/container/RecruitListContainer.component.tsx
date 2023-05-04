@@ -1,21 +1,46 @@
-import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 
-import { RecruitListQueryModel } from '@/types/recruit';
+import { Suspense } from '@/libs';
+import type { RecruitListQueryModel as SearchFilter } from '@/types/recruit';
+
 import * as S from './RecruitListContainer.styled';
-import RecruitListResults from '../recruitListResults/RecruitListResults.component';
+
+import { useSearchFilter } from '../hooks';
+
+const FilterList = dynamic(() => import('../filterList/FilterList.component'), {
+  suspense: true,
+});
+
+const RecruitList = dynamic(() => import('../recruitListResults/RecruitListResults.component'), {
+  suspense: true,
+});
+
+const ListSkeleton = dynamic(() => import('@/components/common/list/List.skeleton'), {
+  ssr: false,
+});
+
+const FilterListSkeleton = dynamic(() => import('../filterList/FilterList.skeleton'), {
+  ssr: false,
+});
 
 interface RecruitListContainerProps {
-  filters: RecruitListQueryModel;
+  staticFilters: SearchFilter;
 }
 
-const RecruitListContainer = ({ filters }: RecruitListContainerProps) => {
+function RecruitListContainer({ staticFilters }: RecruitListContainerProps) {
+  const { searchFilters, getFilterProps, handleResetFilter } = useSearchFilter(staticFilters);
+
   return (
     <S.RecruitListContainer>
-      <Suspense fallback={<div />}>
-        <RecruitListResults filters={filters} />
+      <S.A11yTitle>채용 공고</S.A11yTitle>
+      <Suspense fallback={<FilterListSkeleton />}>
+        <FilterList filters={searchFilters} {...getFilterProps()} />
+      </Suspense>
+      <Suspense fallback={<ListSkeleton count={3} hasTags />}>
+        <RecruitList filters={searchFilters} handleResetFilter={handleResetFilter} />
       </Suspense>
     </S.RecruitListContainer>
   );
-};
+}
 
 export default RecruitListContainer;

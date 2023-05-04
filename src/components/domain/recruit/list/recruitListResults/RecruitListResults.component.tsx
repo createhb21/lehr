@@ -1,33 +1,39 @@
-import Link from 'next/link';
+import SearchedList from '../searchedList/SearchedList.component';
 
-import { RecruitListQueryModel } from '@/types/recruit';
-import { useRecruitListQuery } from '@/queries/recruit';
-import { Pagination } from '@/components/common/pagination';
+import { Button, NoResult, Pagination } from '@/components/common';
+
+import { RecruitListQueryModel as SearchFilter } from '@/types/recruit';
+
 import * as S from './RecruitListResults.styled';
+import { useRecruitListQuery } from '@/queries/recruit';
 
 interface RecruitListResultsProps {
-  filters: RecruitListQueryModel;
+  filters: SearchFilter;
+  handleResetFilter: () => void;
 }
 
-const RecruitListResults = ({ filters }: RecruitListResultsProps) => {
+const RecruitListResults = ({ filters, handleResetFilter }: RecruitListResultsProps) => {
   const { data: searchedRecruitListData } = useRecruitListQuery(filters);
 
   return (
-    <>
-      <S.List>
-        {searchedRecruitListData?.data?.map((item) => {
-          return (
-            <S.Item key={item.id}>
-              <Link href={`/jd/detail/${item.id}`}>
-                <h2>{item?.company?.name}</h2>
-                <strong>{item?.title}</strong>
-              </Link>
-            </S.Item>
-          );
-        })}
-      </S.List>
-      <Pagination pageInfo={searchedRecruitListData?.page_result} />
-    </>
+    <S.SearchResults>
+      {searchedRecruitListData?.data?.length ? (
+        <SearchedList data={searchedRecruitListData?.data} />
+      ) : (
+        <NoResult title="찾고 있는 검색 결과가 없어요.">
+          <Button
+            css={S.resetBtn}
+            size="md"
+            label="필터 초기화"
+            variant="secondary"
+            onClick={handleResetFilter}
+          />
+        </NoResult>
+      )}
+      {!!searchedRecruitListData?.data?.length && (
+        <Pagination pageInfo={searchedRecruitListData?.page_result} />
+      )}
+    </S.SearchResults>
   );
 };
 
