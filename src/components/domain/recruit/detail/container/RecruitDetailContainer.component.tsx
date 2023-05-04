@@ -1,9 +1,11 @@
-import RecruitDetailResults from '../recruitDetailResults/RecruitDetailResults.component';
-import { useRouter } from 'next/router';
 import { Suspense } from 'react';
+import { useRouter } from 'next/router';
+
+import { useRecruitDetailQuery } from '@/queries/recruit';
 
 import * as S from './RecruitDetailContainer.styled';
-import { useRecruitDetailQuery } from '@/queries/recruit';
+
+import RecruitDetailResults from '../recruitDetailResults/RecruitDetailResults.component';
 
 const RecruitDetailContainer = () => {
   const {

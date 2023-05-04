@@ -2,14 +2,27 @@ import type { GetServerSidePropsContext, GetStaticPaths, NextLayoutPage } from '
 import { ReactElement } from 'react';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 
-import { Layout } from '@/components';
+import { Layout, SEO } from '@/components';
 import { RecruitDetailContainer } from '@/components/domain/recruit/detail';
 
 import { fetchRecruitDetail } from '@/apis/recruit';
 import { recruitKeys } from '@/queries/queryKeys';
 
-const RecruitingDetailPage: NextLayoutPage = () => {
-  return <RecruitDetailContainer />;
+interface RecruitingDetailPageProps {
+  title?: string;
+  description?: string;
+}
+
+const RecruitingDetailPage: NextLayoutPage = ({
+  title,
+  description,
+}: RecruitingDetailPageProps) => {
+  return (
+    <>
+      <SEO title={title} description={description} />
+      <RecruitDetailContainer />
+    </>
+  );
 };
 
 RecruitingDetailPage.getLayout = function getLayout(page: ReactElement) {
@@ -33,12 +46,14 @@ export const getStaticProps = async (context: GetServerSidePropsContext) => {
 
   try {
     const queryClient = new QueryClient();
-    await queryClient.prefetchQuery(recruitKeys.detail(recruitId), () =>
+    const res = await queryClient.fetchQuery(recruitKeys.detail(recruitId), () =>
       fetchRecruitDetail({ recruitId }),
     );
 
     return {
       props: {
+        title: res.data.title,
+        description: `${res.data.company.name} | ${res.data.title} | 고초대졸 닷컴`,
         dehydratedState: dehydrate(queryClient),
       },
       revalidate: REVALIDATE_SECONDS,

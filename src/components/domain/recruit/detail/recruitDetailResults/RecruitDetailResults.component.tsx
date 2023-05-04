@@ -1,12 +1,17 @@
+import Link from 'next/link';
+import NextImage from 'next/image';
+
+import { getCurrentDateTime } from '@/utils/getCurrentDateTime';
+
+import { DEFAULT_THUMBNAIL_IMAGE } from '@/constants';
+
+import { ViewIcon } from '@/assets/icons';
+
+import { Button } from '@/components/common';
+
 import { RecruitDetail } from '@/types';
 
 import * as S from './RecruitDetailResults.styled';
-import NextImage from 'next/image';
-import { getCurrentDateTime } from '@/utils/getCurrentDateTime';
-import { DEFAULT_THUMBNAIL_IMAGE } from '@/constants';
-import { ViewIcon } from '@/assets/icons';
-import { Button } from '@/components/common';
-import Link from 'next/link';
 
 interface RecruitDetailResultsProps {
   data?: RecruitDetail;

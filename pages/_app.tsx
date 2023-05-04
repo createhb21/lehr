@@ -11,6 +11,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { globalStyles, theme } from '@/styles';
 
 import { queryClient } from '@/queries';
+import { SEO } from '@/components';
+import { DEFAULT_SEO_CONFIG } from '@/constants';
 
 NProgress.configure({ minimum: 0.1, showSpinner: false, easing: 'linear' });
 
@@ -38,6 +40,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
 
   return (
     <>
+      <SEO {...DEFAULT_SEO_CONFIG} />
       <Global styles={globalStyles} />
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
