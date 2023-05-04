@@ -26,7 +26,7 @@ export const useSearchFilter = (staticFilters: SearchFilter) => {
           query: { ...query, [name]: value },
         });
       },
-    [],
+    [query],
   );
 
   const handleDeleteTag = useCallback(
@@ -40,14 +40,14 @@ export const useSearchFilter = (staticFilters: SearchFilter) => {
         query,
       });
     },
-    [],
+    [query],
   );
 
   const handleResetFilter = useCallback(() => {
     router.push({
       pathname: router.pathname,
     });
-  }, []);
+  }, [query]);
 
   useEffect(() => {
     const query = { ...router.query };
