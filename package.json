@@ -21,7 +21,8 @@
     "next": "13.3.1",
     "nprogress": "^0.2.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-loading-skeleton": "^3.2.1"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.10.8",
