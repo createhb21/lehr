@@ -6,10 +6,6 @@ export const RecruitDetailContainer = styled.div`
     ${theme.size.container};
     min-height: inherit;
     margin: 0 auto;
-    padding: 40px 0;
-
-    @media ${theme.breakPoint.device.tablet} {
-      padding: 40px 20px;
-    }
+    padding: 40px 20px;
   `}
 `;

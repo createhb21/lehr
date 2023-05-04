@@ -1,8 +1,12 @@
 import { RecruitDetail } from '@/types';
 
 import * as S from './RecruitDetailResults.styled';
-import Image from 'next/image';
+import NextImage from 'next/image';
 import { getCurrentDateTime } from '@/utils/getCurrentDateTime';
+import { DEFAULT_THUMBNAIL_IMAGE } from '@/constants';
+import { ViewIcon } from '@/assets/icons';
+import { Button } from '@/components/common';
+import Link from 'next/link';
 
 interface RecruitDetailResultsProps {
   data?: RecruitDetail;
@@ -15,50 +19,45 @@ const RecruitDetailResults = ({ data }: RecruitDetailResultsProps) => {
 
   return (
     <S.RecruitDetailResults>
-      <Image
-        src={data?.company?.logo_url || ''}
-        alt={data?.company?.name || ''}
-        width={90}
-        height={90}
-      />
-      <strong>{data?.company?.name}</strong>
-      <h2>{data?.title}</h2>
-      <br />
-      <span>북마크 수 {data?.bookmark}</span>
-      <br />
-      <span>조회 수 {data?.view}</span>
-      <br />
-      <span>채용 시작일 {getCurrentDateTime(data?.start_time)}</span>
-      <br />
-      <span>채용 마감일 {getCurrentDateTime(data?.end_time)}</span>
-      <br />
-      <br />
-      <a href={data?.apply_url} target="_blank" rel="noopener noreferrer">
-        지원하기
-      </a>
-
-      <h4>직무</h4>
-      <br />
-      <div>
+      <S.ListItem>
+        <S.CTAWrapper>
+          <S.Image>
+            <NextImage src={data?.company?.logo_url || DEFAULT_THUMBNAIL_IMAGE} alt="" fill />
+          </S.Image>
+          <S.DescList>
+            <S.TimeDesc>
+              {getCurrentDateTime(data?.start_time)}~{getCurrentDateTime(data?.end_time)}
+            </S.TimeDesc>
+            <S.CompanyName>{data?.company?.name}</S.CompanyName>
+            <S.Title>{data?.title}</S.Title>
+            <S.IconDesc>
+              <ViewIcon />
+              {data?.view}
+            </S.IconDesc>
+            <Link href={data?.apply_url || '/jd/list'} target="_blank" rel="noopener noreferrer">
+              <Button css={S.recruitButton} size="smd" label="지원하기" variant="secondary" />
+            </Link>
+          </S.DescList>
+        </S.CTAWrapper>
+      </S.ListItem>
+      <S.OneDepthPositionList>
         {data?.position_arr?.map((item) => {
           return (
-            <span
-              key={item?.id}
-              style={{ display: 'block', width: '100%' }}
-            >{`[${item?.task?.main_task}]`}</span>
+            <S.OneDepthPosition key={item?.id}>
+              <Button size="xs" label={item?.task?.main_task} variant="primary" />
+            </S.OneDepthPosition>
           );
         })}
-      </div>
-
-      <div>
+      </S.OneDepthPositionList>
+      <S.SecondDepthPositionList>
         {secondDepthPositions?.map((item, idx) => {
           return (
-            <span key={idx} style={{ display: 'block', width: '100%' }}>
-              {item}
-            </span>
+            <S.SecondDepthPosition key={idx}>
+              <Button size="xs" label={item !== '' ? item : '없음'} variant="secondary" />
+            </S.SecondDepthPosition>
           );
         })}
-      </div>
+      </S.SecondDepthPositionList>
     </S.RecruitDetailResults>
   );
 };
