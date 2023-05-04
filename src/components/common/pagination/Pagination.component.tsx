@@ -31,7 +31,7 @@ export const Pagination = ({
   } = usePagination(page, total_pages, maxPageCount);
 
   return (
-    <S.Root>
+    <S.Pagination>
       <S.Wrapper>
         {hasDoubleBtn && (
           <S.ArrowBtn type="button" disabled={isDisabledPrev} onClick={handleFirstPage}>
@@ -63,6 +63,6 @@ export const Pagination = ({
           </S.ArrowBtn>
         )}
       </S.Wrapper>
-    </S.Root>
+    </S.Pagination>
   );
 };

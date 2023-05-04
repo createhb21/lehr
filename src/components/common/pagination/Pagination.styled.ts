@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import { ArrowDoubleIcon, ArrowIcon } from '@/assets/icons';
 
-export const Root = styled.div`
+export const Pagination = styled.div`
   ${({ theme }) => css`
     display: flex;
     height: 72px;

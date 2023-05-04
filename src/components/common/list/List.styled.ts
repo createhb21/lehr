@@ -1,16 +1,26 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+export const List = styled.ul`
+  ${({ theme }) => css`
+    display: grid;
+    padding: 0 20px;
+    gap: 10px;
+
+    @media ${theme.breakPoint.device.tablet} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  `}
+`;
+
 export const ListItem = styled.li`
   ${({ theme }) => css`
     width: 100%;
-    border-bottom: 1px solid ${theme.colors.gray20};
+    border: 1px solid ${theme.colors.gray20};
+    border-radius: 20px;
     padding: 0 2px;
     transition: 0.3s;
-
-    &:last-of-type {
-      border-color: transparent;
-    }
 
     @media (hover: hover) {
       &:hover {
@@ -20,83 +30,68 @@ export const ListItem = styled.li`
   `}
 `;
 
-export const ListItemSkeleton = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    width: 100%;
-    min-height: 142px;
-    border-bottom: 1px solid ${theme.colors.gray20};
-    padding: 20px 18px;
-  `}
-`;
-
-export const ContentSkeleton = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 export const AnchorWrapper = styled.div`
   display: flex;
+  column-gap: 20px;
   padding: 20px 18px;
 `;
 
-interface MetadataProps {
-  isRecommend: boolean;
-}
+export const Image = styled.div`
+  position: relative;
+  width: 80px;
+  height: 80px;
 
-export const Metadata = styled.div<MetadataProps>`
-  ${({ theme, isRecommend }) => css`
-    ${isRecommend ? theme.fonts.semibold16 : theme.fonts.semibold17};
-    display: none;
-    align-items: center;
-    width: 48px;
-    height: inherit;
-    color: ${theme.colors.black};
+  & > img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+`;
 
-    @media ${theme.breakPoint.device.tablet} {
-      display: flex;
-    }
-  `}
+export const DescList = styled.dl`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 12px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-top: 4px;
+`;
+
+export const TimeDesc = styled.span`
+  margin-bottom: 20px;
+`;
+
+export const CompanyName = styled.strong``;
+
+export const IconDesc = styled.span`
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+  width: max-content;
 `;
 
 export const Title = styled.h3`
   ${({ theme }) => css`
     ${theme.fonts.semibold17};
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 120px;
     text-overflow: ellipsis;
+    white-space: nowrap;
     overflow: hidden;
     color: ${theme.colors.black};
 
-    @media ${theme.breakPoint.device.tablet} {
-      &::before {
-        display: none;
-      }
-    }
-  `}
-`;
-
-export const titleSkeleton = css`
-  width: 100%;
-  max-width: 500px;
-  height: 28px;
-`;
-
-export const DescList = styled.dl`
-  ${({ theme }) => css`
-    position: relative;
-    display: flex;
-    min-width: 0;
-    width: 100%;
-    max-width: 100%;
-    margin-top: 12px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-
-    @media ${theme.breakPoint.device.tablet} {
-      margin-top: 4px;
+    @media ${theme.breakPoint.device.desktop} {
+      width: max-content;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
     }
   `}
 `;
@@ -107,132 +102,57 @@ export const Desc = styled.div`
     position: relative;
     display: flex;
     color: ${theme.colors.gray70};
+  `}
+`;
 
-    & > dt {
-      ${theme.a11y.visuallyHidden};
-      white-space: nowrap;
+export const FloatDesc = styled.span`
+  ${({ theme }) => css`
+    position: absolute;
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    bottom: 6px;
+    right: 4px;
 
-      &::after {
-        content: ':';
-      }
-    }
-
-    &:not(:last-of-type) {
-      margin-right: 25px;
-
-      &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        right: -12px;
-        width: 1px;
-        height: 12px;
-        background-color: ${theme.colors.gray30};
-        transform: translateY(-50%);
-      }
-    }
-
-    @media ${theme.breakPoint.device.tablet} {
-      & > dt {
-        ${theme.a11y.clearHidden};
-        margin-right: 4px;
-      }
-
-      &:first-of-type > dt {
-        ${theme.a11y.visuallyHidden};
-      }
-
-      & > dd {
-        width: max-content;
-      }
+    @media ${theme.breakPoint.device.desktop} {
+      bottom: unset;
+      top: 0;
     }
   `}
+`;
+
+export const ListItemSkeleton = styled.li`
+  ${({ theme }) => css`
+    display: flex;
+    width: 100%;
+    min-height: 112px;
+    border-bottom: 1px solid ${theme.colors.gray20};
+    padding: 16px 18px;
+  `}
+`;
+
+export const ContentSkeleton = styled.div`
+  position: relative;
+  display: flex;
+  column-gap: 20px;
+  width: 100%;
+`;
+
+export const ImageSkeleton = styled.div`
+  width: 80px;
+  height: 80px;
 `;
 
 export const TagList = styled.ul`
-  ${({ theme }) => css`
-    display: none;
-    column-gap: 8px;
-    margin-top: 12px;
-
-    @media ${theme.breakPoint.device.tablet} {
-      display: flex;
-    }
-  `}
+  position: absolute;
+  top: 0;
+  right: 4px;
+  display: flex;
+  justify-self: flex-end;
+  column-gap: 8px;
+  margin-top: 12px;
 `;
 
-export const tag = css`
-  &:disabled {
-    cursor: default;
-  }
-`;
-
-export const CheckItem = styled.li`
-  ${({ theme }) => css`
-    display: flex;
-    align-items: center;
-    column-gap: 20px;
-    max-width: inherit;
-    border-bottom: 1px solid ${theme.colors.gray20};
-    padding: 20px;
-    transition: 0.3s;
-
-    &:last-of-type {
-      border-color: transparent;
-    }
-
-    @media (hover: hover) {
-      &:hover {
-        border-color: ${theme.colors.gray40};
-      }
-    }
-  `}
-`;
-
-export const Content = styled.div`
-  width: 100%;
-  overflow: hidden;
-`;
-
-export const Anchor = styled.a`
-  display: block;
-`;
-
-export const ListCard = styled.li`
-  ${({ theme }) => css`
-    width: 384px;
-    border-radius: 10px;
-    border: 1px solid ${theme.colors.gray20};
-    background-color: ${theme.colors.white};
-    transition: 0.3s;
-
-    @media (hover: hover) {
-      &:hover {
-        box-shadow: ${theme.boxShadows.card};
-      }
-    }
-  `}
-`;
-
-export const CardAnchor = styled.a`
-  display: block;
-  padding: 16px 24px;
-
-  ${({ theme }) => css`
-    & > h3 {
-      ${theme.fonts.semibold15};
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      margin-bottom: 8px;
-      color: ${theme.colors.black};
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-
-    & > span {
-      ${theme.fonts.regular14};
-      color: ${theme.colors.gray70};
-    }
-  `}
+export const paddingOnSkeleton = css`
+  padding: 40px 0;
 `;

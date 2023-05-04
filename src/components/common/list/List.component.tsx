@@ -1,9 +1,10 @@
 import Link from 'next/link';
 
 import * as S from './List.styled';
-import { PATH } from '@/constants';
-import Image from 'next/image';
+import { DEFAULT_THUMBNAIL_IMAGE, PATH } from '@/constants';
+import NextImage from 'next/image';
 import { getCurrentDateTime } from '@/utils/getCurrentDateTime';
+import { BookmarkIcon, ViewIcon } from '@/assets/icons';
 
 interface ListProps {
   className?: string;
@@ -23,7 +24,7 @@ interface ListItemProps {
 }
 
 export const List = ({ className, children }: ListProps) => {
-  return <ul className={className}>{children}</ul>;
+  return <S.List className={className}>{children}</S.List>;
 };
 
 List.Item = function ListItem({
@@ -41,15 +42,24 @@ List.Item = function ListItem({
     <S.ListItem className={className}>
       <Link href={`${PATH.detail}/${recruitId}`} passHref>
         <S.AnchorWrapper>
-          <Image src={companyThumbnail} alt="" width={80} height={80} />
+          <S.Image>
+            <NextImage src={companyThumbnail || DEFAULT_THUMBNAIL_IMAGE} alt="" fill />
+          </S.Image>
           <S.DescList>
+            <S.TimeDesc>
+              {getCurrentDateTime(createdTime)}~{getCurrentDateTime(endTime)}
+            </S.TimeDesc>
+            <S.CompanyName>{companyName}</S.CompanyName>
             <S.Title>{title}</S.Title>
-            <strong>{companyName}</strong>
-            <span>채용 시작일 {getCurrentDateTime(createdTime)}</span>
-            <br />
-            <span>채용 마감일 {getCurrentDateTime(endTime)}</span>
-            <span>{bookmark}</span>
-            <span>{view}</span>
+            <S.FloatDesc>
+              <S.IconDesc>
+                <BookmarkIcon /> {bookmark}
+              </S.IconDesc>
+              <S.IconDesc>
+                <ViewIcon />
+                {view}
+              </S.IconDesc>
+            </S.FloatDesc>
           </S.DescList>
         </S.AnchorWrapper>
       </Link>

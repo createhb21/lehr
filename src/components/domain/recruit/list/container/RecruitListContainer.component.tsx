@@ -36,7 +36,7 @@ function RecruitListContainer({ staticFilters }: RecruitListContainerProps) {
       <Suspense fallback={<FilterListSkeleton />}>
         <FilterList filters={searchFilters} {...getFilterProps()} />
       </Suspense>
-      <Suspense fallback={<ListSkeleton count={3} hasTags />}>
+      <Suspense fallback={<ListSkeleton count={6} hasTags />}>
         <RecruitList filters={searchFilters} handleResetFilter={handleResetFilter} />
       </Suspense>
     </S.RecruitListContainer>

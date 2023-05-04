@@ -14,6 +14,12 @@ const nextConfig = {
         port: '',
         pathname: '/companies/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'ionicframework.com',
+        port: '',
+        pathname: '/docs/img/**',
+      },
     ],
   },
   webpack(config) {

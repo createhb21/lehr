@@ -27,14 +27,14 @@ const ListSkeleton = ({
   }, []);
 
   return (
-    <>
+    <S.List css={S.paddingOnSkeleton}>
       {[...Array(count)].map((_, i) => (
         <S.ListItemSkeleton key={i} css={className}>
           {isDeferred && (
             <S.ContentSkeleton>
-              <S.Title>
-                <Skeleton css={S.titleSkeleton} />
-              </S.Title>
+              <S.ImageSkeleton>
+                <Skeleton width={80} height={80} borderRadius={10} />
+              </S.ImageSkeleton>
               <S.DescList>
                 {[...Array(descCount)].map((_, i) => (
                   <S.Desc key={i}>
@@ -46,14 +46,13 @@ const ListSkeleton = ({
                 <S.TagList>
                   <Skeleton width={65} height={28} borderRadius={10} />
                   <Skeleton width={65} height={28} borderRadius={10} />
-                  <Skeleton width={65} height={28} borderRadius={10} />
                 </S.TagList>
               )}
             </S.ContentSkeleton>
           )}
         </S.ListItemSkeleton>
       ))}
-    </>
+    </S.List>
   );
 };
 
