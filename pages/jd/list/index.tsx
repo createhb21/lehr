@@ -17,7 +17,11 @@ const RecruitingSearchPage: NextLayoutPage = ({
 };
 
 RecruitingSearchPage.getLayout = function getLayout(page: ReactElement) {
-  return <Layout header>{page}</Layout>;
+  return (
+    <Layout header footer>
+      {page}
+    </Layout>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {

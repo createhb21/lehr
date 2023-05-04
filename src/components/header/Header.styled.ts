@@ -8,6 +8,14 @@ export const Header = styled.header`
     left: 0;
     width: 100vw;
     background-color: ${theme.colors.white};
+    height: ${theme.size.header.height_m};
+    border-bottom: 1px solid ${theme.colors.gray20};
+    background-color: ${theme.colors.white};
+    z-index: ${theme.zIndex.header};
+
+    @media ${theme.breakPoint.device.desktop} {
+      height: ${theme.size.header.height_d};
+    }
   `}
 `;
 

@@ -13,7 +13,11 @@ const RecruitingDetailPage: NextLayoutPage = () => {
 };
 
 RecruitingDetailPage.getLayout = function getLayout(page: ReactElement) {
-  return <Layout header>{page}</Layout>;
+  return (
+    <Layout header footer>
+      {page}
+    </Layout>
+  );
 };
 
 const REVALIDATE_SECONDS = 1000 * 60 * 10; // 10분

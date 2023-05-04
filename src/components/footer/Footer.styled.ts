@@ -7,7 +7,7 @@ export const Footer = styled.footer`
     flex-flow: column nowrap;
     height: ${theme.size.footer.height_m};
     padding: 28px 0;
-    background-color: ${theme.colors.gray10};
+    background-color: ${theme.colors.white};
   `}
 `;
 
