@@ -1,22 +1,21 @@
+import RecruitDetailResults from '../recruitDetailResults/RecruitDetailResults.component';
+import { useRouter } from 'next/router';
 import { Suspense } from 'react';
 
-import { RecruitDetail } from '@/types';
 import * as S from './RecruitDetailContainer.styled';
-import RecruitDetailResults from '../recruitDetailResults/RecruitDetailResults.component';
+import { useRecruitDetailQuery } from '@/queries/recruit';
 
-interface RecruitDetailContainerProps {
-  data?: RecruitDetail;
-}
+const RecruitDetailContainer = () => {
+  const {
+    query: { id },
+  } = useRouter();
+  const { data: recruitDetailData } = useRecruitDetailQuery(id as string);
 
-const RecruitDetailContainer = ({ data }: RecruitDetailContainerProps) => {
   return (
     <S.RecruitDetailContainer>
-      <Suspense fallback={<div />}>
-        <RecruitDetailResults data={data} />
+      <Suspense>
+        <RecruitDetailResults data={recruitDetailData?.data} />
       </Suspense>
-      {/* <Suspense fallback={<div />}>
-        <RecommendList />
-      </Suspense> */}
     </S.RecruitDetailContainer>
   );
 };

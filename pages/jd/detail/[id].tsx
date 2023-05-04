@@ -1,19 +1,15 @@
+import type { GetServerSidePropsContext, GetStaticPaths, NextLayoutPage } from 'next';
 import { ReactElement } from 'react';
-import type { GetServerSidePropsContext, NextLayoutPage } from 'next';
+import { QueryClient, dehydrate } from '@tanstack/react-query';
 
 import { Layout } from '@/components';
-import { QueryClient, dehydrate } from '@tanstack/react-query';
-import { recruitKeys } from '@/queries/queryKeys';
-import { fetchRecruitDetail } from '@/apis/recruit';
-import { RecruitDetail } from '@/types/recruit';
 import { RecruitDetailContainer } from '@/components/domain/recruit/detail';
 
-interface RecruitingDetailPageProps {
-  data?: RecruitDetail;
-}
+import { fetchRecruitDetail } from '@/apis/recruit';
+import { recruitKeys } from '@/queries/queryKeys';
 
-const RecruitingDetailPage: NextLayoutPage = ({ data }: RecruitingDetailPageProps) => {
-  return <RecruitDetailContainer data={data} />;
+const RecruitingDetailPage: NextLayoutPage = () => {
+  return <RecruitDetailContainer />;
 };
 
 RecruitingDetailPage.getLayout = function getLayout(page: ReactElement) {
@@ -24,21 +20,35 @@ RecruitingDetailPage.getLayout = function getLayout(page: ReactElement) {
   );
 };
 
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+const REVALIDATE_SECONDS = 1000 * 60 * 10; // 10분
+
+export const getStaticPaths: GetStaticPaths = () => ({
+  paths: [],
+  fallback: 'blocking',
+});
+
+export const getStaticProps = async (context: GetServerSidePropsContext) => {
   const { params } = context;
   const recruitId = params?.id as string;
 
-  const queryClient = new QueryClient();
-  const res = await queryClient.fetchQuery(recruitKeys.detail(recruitId), () =>
-    fetchRecruitDetail({ recruitId }),
-  );
+  try {
+    const queryClient = new QueryClient();
+    await queryClient.prefetchQuery(recruitKeys.detail(recruitId), () =>
+      fetchRecruitDetail({ recruitId }),
+    );
 
-  return {
-    props: {
-      data: res.data,
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-    },
-  };
+    return {
+      props: {
+        dehydratedState: dehydrate(queryClient),
+      },
+      revalidate: REVALIDATE_SECONDS,
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+      revalidate: 500,
+    };
+  }
 };
 
 export default RecruitingDetailPage;

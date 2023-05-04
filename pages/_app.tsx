@@ -1,15 +1,16 @@
-import { ReactElement, useEffect, useState } from 'react';
-import { NextComponentType } from 'next/types';
-import { useRouter } from 'next/router';
-import type { AppContext, AppInitialProps, AppLayoutProps } from 'next/app';
-import { Hydrate, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Global, ThemeProvider } from '@emotion/react';
+import type { AppContext, AppInitialProps, AppLayoutProps } from 'next/app';
+import { useRouter } from 'next/router';
+import type { NextComponentType } from 'next/types';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import { ReactElement, useEffect } from 'react';
+import { Hydrate, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+import { globalStyles, theme } from '@/styles';
 
 import { queryClient } from '@/queries';
-import { globalStyles, theme } from '@/styles';
 
 NProgress.configure({ minimum: 0.1, showSpinner: false, easing: 'linear' });
 
@@ -19,7 +20,6 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
 }: AppLayoutProps) => {
   const router = useRouter();
 
-  const [client] = useState(queryClient);
   const getLayout = Component.getLayout ?? ((page: ReactElement) => page);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
   return (
     <>
       <Global styles={globalStyles} />
-      <QueryClientProvider client={client}>
+      <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <ReactQueryDevtools initialIsOpen={false} />
           <ThemeProvider theme={theme}>{getLayout(<Component {...pageProps} />)}</ThemeProvider>

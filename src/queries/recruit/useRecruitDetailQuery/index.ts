@@ -1,9 +1,10 @@
-import { recruitKeys } from '@/queries/queryKeys/recruit';
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
-import * as api from '@/apis/recruit';
-import * as type from '@/types/recruit';
 import { StandardResponseModel } from '@/types';
+import * as type from '@/types/recruit';
+
+import * as api from '@/apis/recruit';
+import { recruitKeys } from '@/queries/queryKeys/recruit';
 
 export const useRecruitDetailQuery = (
   recruitId: type.RecruitDetailQueryModel['recruitId'],

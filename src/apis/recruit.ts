@@ -1,10 +1,11 @@
-import type * as type from '@/types/recruit';
 import { StandardResponseModel } from '@/types';
+import type * as type from '@/types/recruit';
+
 import { ax } from './axios';
 
 export const fetchRecruitList = async (
   req: type.RecruitListQueryModel,
-): Promise<StandardResponseModel<type.RecruitOverview>> => {
+): Promise<StandardResponseModel<type.RecruitOverview[]>> => {
   const res = await ax.get('/v1/jds', { params: req });
   return res.data;
 };

@@ -7,10 +7,10 @@ function queryErrorHandler(error: unknown): void {
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 3,
-      cacheTime: 1000 * 60 * 8,
-      suspense: true,
       retry: 0,
+      suspense: true,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
       onError: (err) => queryErrorHandler(err),
     },
     mutations: {

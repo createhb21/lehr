@@ -1,7 +1,7 @@
-import { isValidElement, Suspense as ReactSuspense, useEffect, useState } from 'react';
+import { Suspense as ReactSuspense, isValidElement, useEffect, useState } from 'react';
 import type { SuspenseProps } from 'react';
 
-export default function Suspense({ fallback, children }: SuspenseProps) {
+export const Suspense = ({ fallback, children }: SuspenseProps) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -17,4 +17,4 @@ export default function Suspense({ fallback, children }: SuspenseProps) {
   }
 
   return fallback;
-}
+};
