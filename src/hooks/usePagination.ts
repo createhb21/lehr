@@ -21,10 +21,14 @@ export const usePagination = (page: number, totalPages: number, maxPageCount: nu
   const handleFirstPage = () => {
     if (currentPage === 1) return;
 
-    router.push({
-      pathname: router.pathname,
-      query: { ...router.query, page: String(1) },
-    });
+    router.push(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, page: String(1) },
+      },
+      undefined,
+      { shallow: true },
+    );
   };
 
   const handlePrevPage = () => {
@@ -35,19 +39,27 @@ export const usePagination = (page: number, totalPages: number, maxPageCount: nu
       1,
     );
 
-    router.push({
-      pathname: router.pathname,
-      query: { ...router.query, page: String(prevPageNum) },
-    });
+    router.push(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, page: String(prevPageNum) },
+      },
+      undefined,
+      { shallow: true },
+    );
   };
 
   const handleClickNum = (idx: number) => () => {
     if (currentPage === idx) return;
 
-    router.push({
-      pathname: router.pathname,
-      query: { ...router.query, page: String(idx) },
-    });
+    router.push(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, page: String(idx) },
+      },
+      undefined,
+      { shallow: true },
+    );
   };
 
   const handleNextPage = () => {
@@ -58,19 +70,27 @@ export const usePagination = (page: number, totalPages: number, maxPageCount: nu
       totalPages,
     );
 
-    router.push({
-      pathname: router.pathname,
-      query: { ...router.query, page: String(nextPageNum) },
-    });
+    router.push(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, page: String(nextPageNum) },
+      },
+      undefined,
+      { shallow: true },
+    );
   };
 
   const handleLastPage = () => {
     if (currentPage === totalPages) return;
 
-    router.push({
-      pathname: router.pathname,
-      query: { ...router.query, page: String(totalPages) },
-    });
+    router.push(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, page: String(totalPages) },
+      },
+      undefined,
+      { shallow: true },
+    );
   };
 
   useEffect(() => {

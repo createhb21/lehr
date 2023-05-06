@@ -21,10 +21,14 @@ export const useSearchFilter = (staticFilters: SearchFilter) => {
         const value = options;
         const query = { ...router.query };
 
-        router.push({
-          pathname: router.pathname,
-          query: { ...query, [name]: value },
-        });
+        router.push(
+          {
+            pathname: router.pathname,
+            query: { ...query, [name]: value },
+          },
+          undefined,
+          { shallow: true },
+        );
       },
     [query],
   );
@@ -35,18 +39,26 @@ export const useSearchFilter = (staticFilters: SearchFilter) => {
       delete query[tag.key];
       if (query?.page) delete query['page'];
 
-      router.push({
-        pathname: router.pathname,
-        query,
-      });
+      router.push(
+        {
+          pathname: router.pathname,
+          query,
+        },
+        undefined,
+        { shallow: true },
+      );
     },
     [query],
   );
 
   const handleResetFilter = useCallback(() => {
-    router.push({
-      pathname: router.pathname,
-    });
+    router.push(
+      {
+        pathname: router.pathname,
+      },
+      undefined,
+      { shallow: true },
+    );
   }, [query]);
 
   useEffect(() => {
